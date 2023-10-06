@@ -19,7 +19,7 @@ export class Parser {
       return {
         detials,
         endscreen,
-        endscreen: endscreen ? this.parseEndscreen(endscreen) : null,
+        endscreen: endscreen ? this.parseEndscreen(endscreen, detials) : null,
       }
     });
   }
@@ -44,21 +44,24 @@ export class Parser {
 
   parseDetails({ author, channelId, lengthSeconds, title, thumbnail }) {
     return {
-      channelId,
-      title,
-      duration: lengthSeconds,
-      thumbnail: thumbnail.thumbnails[thumbnail.thumbnails.length - 1],
-      author,
+      [channelId]: {
+        title,
+        duration: lengthSeconds,
+        thumbnail: thumbnail.thumbnails[thumbnail.thumbnails.length - 1],
+        author,
+      },
     };
   }
 
-  parseEndscreen({ endscreenRenderer }) {
+  parseEndscreen({ endscreenRenderer }, detials) {
     return endscreenRenderer.elements
       .filter(({ endscreenElementRenderer }) => endscreenElementRenderer !== "CHANNEL")
       .map((item) => item["endscreenElementRenderer"])
-      .map(({ title }) => {
+      .map(({ title, metadata }) => {
         return {
           title: title.simpleText,
+          // viewCount: metadata.simpleText.match(/\d/g).join(""),
+          // thumbnail: 
           d: endscreenRenderer
         }
       });
