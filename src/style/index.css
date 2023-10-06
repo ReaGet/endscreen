@@ -1,0 +1,76 @@
+@import "./font.css";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --text: #0e1a1a;
+  --background: #ebf4f4;
+  --primary: #5e457d;
+  --secondary: #e4cecf;
+  --accent: #769451;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: "Open sans";
+  color: var(--text);
+  background-color: var(--background);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 1230px;
+  margin: 50px auto;
+}
+
+.form {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  border-radius: 3px;
+  overflow: hidden;
+  border-bottom: 2px solid var(--secondary);
+}
+
+input,
+button {
+  border: none;
+  outline: none;
+  font-size: 1.6rem;
+}
+
+input {
+  flex: 1;
+  padding: 10px 15px;
+  color: #323232;
+}
+
+input::placeholder {
+  color: #bababa;
+}
+
+button {
+  padding: 0 20px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #fff;
+  color: #bababa;
+}
+
+button:active {
+  background-color: var(--secondary);
+  color: #fff;
+}
