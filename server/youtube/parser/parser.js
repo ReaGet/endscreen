@@ -15,7 +15,7 @@ export class Parser {
   async getData(channelId) {
     const videoIds = await this.getVideosIds(channelId);
     const videos =  await this.getVideos(videoIds);
-    return await Promise.all(videos.map(async (video) => {
+    const result = await Promise.all(videos.map(async (video) => {
       if (!video.endscreens) {
         return video;
       }
@@ -24,6 +24,10 @@ export class Parser {
         endscreens: await this.getVideos(video.endscreens),
       };
     }));
+
+    console.log("Cache size", Object.keys(this.cache).length)
+    this.cache = {};
+    return result;
   }
 
   async getVideos(ids) {
