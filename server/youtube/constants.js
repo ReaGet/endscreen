@@ -14,3 +14,8 @@ export const TAB_TYPE_PARAMS = {
   playlists: "EglwbGF5bGlzdHPyBgQKAkIA",
   about: "EgVhYm91dPIGBAoCEgA%3D",
 };
+export const ENDSCREEN_TYPES = {
+  channel: "CHANNEL",
+  video: "VIDEO",
+  playlist: "PLAYLIST",
+}

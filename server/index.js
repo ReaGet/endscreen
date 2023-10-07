@@ -11,7 +11,7 @@ server.use(express.json());
 const parser = new Parser();
 
 server.post("/get/", async (req, res) => {
-  const response = await parser.getVideos(req.body.id);
+  const response = await parser.getData(req.body.id);
 
   res.send({
     data: response,
