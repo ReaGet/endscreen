@@ -40,7 +40,10 @@ function createItem(video) {
         <div class="video__duration">${convertTime(video.duration)}</div>
       </div>
       <a class="video__title" href="https://youtube.com/watch?v=${video.videoId}" target="_blank">${video.title}</a>
-      <a class="video__channel" href="https://youtube.com/channel/${video.channelId}">${video.author}</a>
+      <div class="video__bottom">
+        <a class="video__channel" href="https://youtube.com/channel/${video.channelId}">${video.author}</a>
+        <span class="video__date">${video.publish.date}</span>
+      </div>
     </article>
   `;
 }

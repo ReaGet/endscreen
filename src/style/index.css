@@ -136,12 +136,23 @@ button:active {
   color: var(--text);
 }
 
+.video__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 10px;
+}
+
 .video__channel {
   padding: 5px;
-  margin: 0 10px;
   font-weight: bold;
   color: var(--text);
   text-decoration: none;
   background-color: #fff;
   border-radius: 3px;
+}
+
+.video__date {
+  font-size: 1.1rem;
 }
