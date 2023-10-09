@@ -1,8 +1,20 @@
+import { connect } from "./connector.js";
+
+const connection1 = connect(".video1", ".video2", {
+  // anchorB: "vertical",
+  // anchorA: "vertical",
+});
+
 const form = document.querySelector(".form");
 const input = document.querySelector("input");
 const output = document.querySelector(".output");
 
 form.addEventListener("submit", handleSubmit);
+
+const apiURL = {
+  local: "localhost",
+  external: "192.168.0.110",
+};
 
 async function handleSubmit(event) {
   event.preventDefault();
@@ -12,7 +24,7 @@ async function handleSubmit(event) {
     id: channelId,
   };
 
-  const response = await fetch("http://localhost:3333/get/", {
+  const response = await fetch(`http://${apiURL.external}:3333/get/`, {
     method: "POST",
     headers: {
       "content-type": "application/json",
