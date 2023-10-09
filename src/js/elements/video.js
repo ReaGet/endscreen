@@ -20,6 +20,7 @@ export class Video {
           <span class="video__date">${this.publish.date}</span>
         </div>
       </article>
+      ${this.endscreens?.map((item) => item)}
     `;
   }
 
