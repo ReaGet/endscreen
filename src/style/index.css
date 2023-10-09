@@ -7,11 +7,24 @@
 }
 
 :root {
-  --text: #0e1a1a;
+  /* --text: #0e1a1a;
   --background: #ebf4f4;
   --primary: #5e457d;
   --secondary: #e4cecf;
-  --accent: #769451;
+  --accent: #769451; */
+
+  /* --text: #042325;
+  --background: #fafeff;
+  --primary: #13bac3;
+  --secondary: #a2f2f6;
+  --accent: #12b1ba; */
+
+  --text: #000000;
+  --background: #fff;
+  --primary: #fd0d6d;
+  --secondary: #feb2a9;
+  --accent: #d91802;
+
 }
 
 html {
@@ -43,6 +56,7 @@ body {
   border-radius: 3px;
   overflow: hidden;
   border-bottom: 2px solid var(--secondary);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.10);
 }
 
 input,
@@ -89,7 +103,8 @@ button:active {
   gap: 10px;
   width: 250px;
   padding-bottom: 10px;
-  background-color: #f5f5f5;
+  /* background-color: #f5f5f5; */
+  background-color: var(--secondary);
   border: none;
   border-radius: 6px;
   font-size: 1.2rem;
@@ -112,19 +127,21 @@ button:active {
   right: 5px;
   padding: 5px;
   border-radius: 3px;
+  color: var(--text);
   background-color: #fff;
 }
 
 .video__title {
   margin: 0 10px;
+  color: var(--text);
 }
 
 .video__channel {
   padding: 5px;
   margin: 0 10px;
   font-weight: bold;
-  color: #000;
+  color: var(--text);
   text-decoration: none;
   background-color: #fff;
-  border-radius: 100%;
+  border-radius: 3px;
 }

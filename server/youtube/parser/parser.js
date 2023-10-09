@@ -1,5 +1,6 @@
 import { Client } from "../index.js";
 import { ENDSCREEN_TYPES } from "../constants.js";
+import { dateFormatter } from "../utils/index.js";
 
 export class Parser {
   constructor() {
@@ -38,15 +39,12 @@ export class Parser {
       return this.client.getVideoInfo(videoId);
     }));
 
-    return videos.map(({ videoDetails, endscreen }) => {
-      const videoInfo = this.parseDetails(videoDetails);
+    return videos.map((video) => {
+      const { videoDetails, endscreen, microformat } = video;
+      const videoInfo = this.parseDetails(videoDetails, microformat);
       const endscreenIds = endscreen ? this.getEndscreenIds(endscreen) : null;
       
       return this.getFromCache(videoInfo, endscreenIds);
-      // return {
-      //   ...videoInfo,
-      //   endscreens
-      // }
     });
   }
 
@@ -77,8 +75,13 @@ export class Parser {
     return ids;
   }
 
-  parseDetails({ author, title, channelId, videoId, lengthSeconds, thumbnail, viewCount }) {
+  parseDetails(
+    { author, title, channelId, videoId, lengthSeconds, thumbnail, viewCount },
+    { playerMicroformatRenderer: { uploadDate, publishDate } }
+    // microformat
+  ) {
     return {
+      // microformat,
       author,
       title,
       channelId,
@@ -86,6 +89,14 @@ export class Parser {
       duration: lengthSeconds,
       thumbnail: thumbnail.thumbnails[thumbnail.thumbnails.length - 1],
       viewCount,
+      publish: {
+        date: dateFormatter(publishDate, "date"),
+        time: dateFormatter(publishDate, "time"),
+      },
+      upload: {
+        date: dateFormatter(uploadDate, "date"),
+        time: dateFormatter(uploadDate, "time"),
+      },
     };
   }
 

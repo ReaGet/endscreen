@@ -39,8 +39,8 @@ function createItem(video) {
         <img src="${video.thumbnail.url}" alt="" width="250" height="140">
         <div class="video__duration">${convertTime(video.duration)}</div>
       </div>
-      <span class="video__title">${video.title}</span>
-      <a href="https://youtube.com/channel/${video.channelId}" class="video__channel">${video.author}</a>
+      <a class="video__title" href="https://youtube.com/watch?v=${video.videoId}" target="_blank">${video.title}</a>
+      <a class="video__channel" href="https://youtube.com/channel/${video.channelId}">${video.author}</a>
     </article>
   `;
 }

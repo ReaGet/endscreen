@@ -8,10 +8,10 @@ export class Client {
   }
 
   async getVideoInfo(videoId) {
-    const { videoDetails, endscreen } = await this.http.post(`${I_END_POINT}/player`, {
+    const { videoDetails, endscreen, microformat } = await this.http.post(`${I_END_POINT}/player`, {
       videoId,
     });
-    return { videoDetails, endscreen };
+    return { videoDetails, endscreen, microformat };
   }
 
   async getChannelVideos(channelId, options) {
