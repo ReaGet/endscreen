@@ -1,4 +1,5 @@
 const connections = {};
+let connectorOptions = {};
 let idGenerator = 0;
 
 HTMLElement.prototype.show = function() { this.style.display = "block" };
@@ -11,11 +12,12 @@ HTMLElement.prototype.offset = function() {
 };
 
 const positionConnection = (connection) => {
-  const posA = connection.elementA.offset();
+  const posA = connection.elementA.offset(),
+    posB = connection.elementB.offset();
+
   posA.left = parseInt(posA.left, 10) + parseInt(connection.elementA.offsetWidth / 2, 10);
   posA.top = parseInt(posA.top, 10) + parseInt(connection.elementA.offsetHeight / 2, 10);
 
-  const posB = connection.elementB.offset();
   posB.left = parseInt(posB.left, 10) + parseInt(connection.elementB.offsetWidth / 2, 10);
   posB.top = parseInt(posB.top, 10) + parseInt(connection.elementB.offsetHeight / 2, 10);
 
@@ -105,6 +107,15 @@ const positionHorizontalLine = (line, point1, point2, radius) => {
 
 /**
  * 
+ * @param {Object} options
+ * @param {HTMLElement} options.container Where to add lines 
+ */
+export const setOptions = (options) => {
+  Object.assign(connectorOptions, options);
+}
+
+/**
+ * 
  * @param {String|HTMLElement} elementA first element selector or HtmlElement
  * @param {String|HTMLElement} elementB second element selector or HtmlElement
  * @param {Object} options 
@@ -148,10 +159,12 @@ export const connect = (elementA, elementB, options = {}) => {
                             ) : ""
                           }">
                 </div>`;
+
+  const container = connectorOptions?.container || document.body;
   
-  document.body.insertAdjacentHTML("afterbegin", div.replace('divUniqueIdentifier', connection.id + '_1'));
-  document.body.insertAdjacentHTML("afterbegin", div.replace('divUniqueIdentifier', connection.id + '_2'));
-  document.body.insertAdjacentHTML("afterbegin", div.replace('divUniqueIdentifier', connection.id + '_3'));
+  container.insertAdjacentHTML("afterbegin", div.replace('divUniqueIdentifier', connection.id + '_1'));
+  container.insertAdjacentHTML("afterbegin", div.replace('divUniqueIdentifier', connection.id + '_2'));
+  container.insertAdjacentHTML("afterbegin", div.replace('divUniqueIdentifier', connection.id + '_3'));
 
   positionConnection(connection);
 

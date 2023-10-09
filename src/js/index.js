@@ -1,15 +1,23 @@
-import { connect } from "./connector.js";
-
-const connection1 = connect(".video1", ".video2", {
-  // anchorB: "vertical",
-  // anchorA: "vertical",
-});
+import { connect, setOptions } from "./connector/index.js";
+import { createVideo } from "./elements/index.js";
 
 const form = document.querySelector(".form");
 const input = document.querySelector("input");
 const output = document.querySelector(".output");
 
 form.addEventListener("submit", handleSubmit);
+
+setOptions({
+  container: output,
+});
+
+let videoItems = [];
+
+// const connection1 = connect(".video1", ".video2", {
+//   container: ".output",
+//   // anchorB: "vertical",
+//   // anchorA: "vertical",
+// });
 
 const apiURL = {
   local: "localhost",
@@ -33,41 +41,15 @@ async function handleSubmit(event) {
   });
   const videos = await response.json();
   buildItems(videos.data);
-  console.log(videos);
+  // console.log(videos);
 }
 
 function buildItems(videos) {
-  const html = videos.reduce((markup, video) => {
-    return (markup += createItem(video));
-  }, "");
+  videoItems = videos.map((video, index) => {
+    return createVideo(video, index);
+  });
 
-  output.innerHTML = html;
-}
+  console.log(videoItems)
 
-function createItem(video) {
-  return `
-    <article class="video">
-      <div class="video__img">
-        <img src="${video.thumbnail.url}" alt="" width="250" height="140">
-        <div class="video__duration">${convertTime(video.duration)}</div>
-      </div>
-      <a class="video__title" href="https://youtube.com/watch?v=${video.videoId}" target="_blank">${video.title}</a>
-      <div class="video__bottom">
-        <a class="video__channel" href="https://youtube.com/channel/${video.channelId}">${video.author}</a>
-        <span class="video__date">${video.publish.date}</span>
-      </div>
-    </article>
-  `;
-}
-
-function convertTime(totalSeconds) {
-  var hours = Math.floor(totalSeconds / 3600);
-  var minutes = Math.floor((totalSeconds - (hours * 3600)) / 60);
-  var seconds = totalSeconds - (hours * 3600) - (minutes * 60);
-
-  if (hours < 10) { hours = "0" + hours; }
-  if (minutes < 10) { minutes = "0" + minutes; }
-  if (seconds < 10) { seconds = "0" + seconds; }
-  
-  return (/0{1,2}/g.test(hours) !== true ? hours + ":" : "") + minutes + ":" + seconds;
+  output.innerHTML = videoItems.map((video) => video).join("");
 }
