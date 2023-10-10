@@ -1,10 +1,10 @@
-import { Http } from "../http/index.js";
+import { HttpCached, Http } from "../http/index.js";
 import { TAB_TYPE_PARAMS, I_END_POINT } from "../constants.js";
 import { getContinuation, parseTabData } from "../utils/index.js";
 
 export class Client {
   constructor() {
-    this.http = new Http();
+    this.http = new HttpCached();
   }
 
   async getVideoInfo(videoId) {
@@ -22,7 +22,7 @@ export class Client {
     const response = await this.http.post(`${I_END_POINT}/browse`, {
       browseId: channelId,
       ...params,
-    });
+    }, true);
 
     const data = parseTabData("videos", response);
     const continuation = getContinuation(data);

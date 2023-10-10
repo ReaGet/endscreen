@@ -20,8 +20,17 @@ export class Video {
           <span class="video__date">${this.publish.date}</span>
         </div>
       </article>
-      ${this.endscreens?.map((item) => item)}
+      ${this.getEndscreens()}
     `;
+  }
+
+  getEndscreens() {
+    // console.log(this.type, this.endscreens, !this.endscreens)
+    if (this.type === "endscreen") {
+      return "";
+    }
+
+    return this.endscreens?.map((item) => item).join("") || "";
   }
 
 }

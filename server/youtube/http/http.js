@@ -41,9 +41,8 @@ export class Http {
 
     const finalUrl = `https://${this.baseUrl}${url}?${new URLSearchParams(params)}`;
 
-    // console.log(1, finalUrl, options)
+    let response = await fetch(finalUrl, options);
     
-    const response = await fetch(finalUrl, options);
     return await response.json();
   }
   

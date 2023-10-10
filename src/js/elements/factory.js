@@ -10,6 +10,7 @@ export const createVideo = (data, index) => {
       const endscreenVideo = new Video(endscreen);
       endscreenVideo.x = index;
       endscreenVideo.y = index2 + 1;
+      endscreenVideo.type = "endscreen";
 
       return endscreenVideo;
     });

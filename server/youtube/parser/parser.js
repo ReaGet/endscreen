@@ -9,7 +9,6 @@ export class Parser {
     this.endscreenAllow = [
       ENDSCREEN_TYPES.video,
     ]
-    this.cache = {};
     this.videosCount = 0;
   }
 
@@ -26,16 +25,12 @@ export class Parser {
       };
     }));
 
-    console.log("Cache size", Object.keys(this.cache).length)
-    this.cache = {};
     return result;
   }
 
   async getVideos(ids) {
     this.videosCount += ids.length;
-    const idsToParse = ids.filter((id) => !Object.keys(this.cache).includes(id));
-    console.log(ids.length, idsToParse.length)
-    const videos = await Promise.all(idsToParse.map((videoId) => {
+    const videos = await Promise.all(ids.map((videoId) => {
       return this.client.getVideoInfo(videoId);
     }));
 
@@ -44,21 +39,11 @@ export class Parser {
       const videoInfo = this.parseDetails(videoDetails, microformat);
       const endscreenIds = endscreen ? this.getEndscreenIds(endscreen) : null;
       
-      return this.getFromCache(videoInfo, endscreenIds);
-    });
-  }
-
-  getFromCache(videoInfo, endscreenIds) {
-    if (!this.cache[videoInfo.videoId]) {
-      this.cache[videoInfo.videoId] = {
+      return {
         ...videoInfo,
-        endscreens: endscreenIds
-      };
-    }
-
-    console.log("Cached: ", Object.keys(this.cache).length, "of", this.videosCount)
-
-    return this.cache[videoInfo.videoId];
+        endscreens: endscreenIds,
+      }
+    });
   }
 
   async getVideosIds(channelId, ids = [], options = {}) {
@@ -78,10 +63,8 @@ export class Parser {
   parseDetails(
     { author, title, channelId, videoId, lengthSeconds, thumbnail, viewCount },
     { playerMicroformatRenderer: { uploadDate, publishDate } }
-    // microformat
   ) {
     return {
-      // microformat,
       author,
       title,
       channelId,
