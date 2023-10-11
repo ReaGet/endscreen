@@ -1,3 +1,3 @@
 ## FIXES
 
-[ ] Some endsreens doesn't exists and parsed data
+[x] Some endsreens doesn't exists and parsed data
