@@ -1,2 +1,3 @@
-export * from "./thumbnail";
+export * from "./image";
 export * from "./video";
+export * from "./channel";

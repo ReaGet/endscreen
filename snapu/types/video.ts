@@ -1,14 +1,14 @@
-import { Thumbnail } from "./thumbnail";
+import { Image } from "./image";
 
 export type Video = {
-  author: String,
-  title: String,
-  channelId: String,
-  videoId: String,
-  duration: Number,
-  thumbnail: Thumbnail,
-  viewCount: Number,
-  endscreen: Array<Video>,
+  author: string,
+  title: string,
+  channelId: string,
+  videoId: string,
+  duration: number,
+  thumbnail: Image,
+  viewCount: number,
+  endscreen: null | Video[],
   publish: Date,
   upload: Date,
 };
