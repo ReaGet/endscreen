@@ -3,12 +3,14 @@ import { Image } from "./image";
 
 export type Channel = {
   name: string,
-  country?: string,
   channelId: string,
   externalId: string,
+  videoCount: number,
   viewCount: number,
-  createdDate: Date,
-  video: Video[],
-  avatar: Image | Image[],
+  createdDate: string,
+  video?: Video[],
+  avatar?: Image | Image[],
   banner?: Image | Image[], 
+  country?: string,
+  description: string,
 };

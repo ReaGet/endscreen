@@ -18,7 +18,7 @@
             class="absolute w-full h-full pl-[157px] left-0 right-0 bg-gray text-black outline-none"
             type="text"
             placeholder="@channelId"
-            :value="channelId"
+            v-model="channelId"
           >
         </label>
         <button class="w-full p-4 bg-black text-white rounded-[6px]">See channel</button>
@@ -35,7 +35,7 @@ definePageMeta({
 const router = useRouter();
 
 // const channelId = ref("@Lolkekovme");
-const channelId = ref("UCsSsgPaZ2GSmO6il8Cb5iGA");
+let channelId = ref("UCsSsgPaZ2GSmO6il8Cb5iGA");
 
 const onSubmit = () => {
   router.push({

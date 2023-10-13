@@ -1,6 +1,16 @@
 <template>
   <div v-if="!channelStore.loaded">Loading</div>
-  <div v-else>Done</div>
+  <div v-else>
+    Done
+    <p>Name: {{ channelStore.info?.name }}</p>
+    <p>channelId: {{ channelStore.info?.channelId }}</p>
+    <p>externalId: {{ channelStore.info?.externalId }}</p>
+    <p>videoCount: {{ channelStore.info?.videoCount }}</p>
+    <p>viewCount: {{ channelStore.info?.viewCount }}</p>
+    <p>createdDate: {{ channelStore.info?.createdDate }}</p>
+    <p>country: {{ channelStore.info?.country }}</p>
+    <p>description: {{ channelStore.info?.description }}</p>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -10,8 +20,6 @@ const route = useRoute();
 const channelStore = useChannelStore();
 
 const { id } = route.query;
-console.log(id)
-
 channelStore.loadInfo(id)
 // channelStore.load()
 // setTimeout(() => {

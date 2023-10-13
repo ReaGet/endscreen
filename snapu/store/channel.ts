@@ -21,6 +21,7 @@ export const useChannelStore = defineStore("channel", {
         });
         const data = await response.json();
         this.info = data.data;
+        this.loaded = true;
       } catch(error) {
         console.log("Channel fetching error:", error);
       }
