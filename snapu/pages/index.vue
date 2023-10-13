@@ -6,7 +6,7 @@
       </h1>
       <form
         class="flex flex-col gap-6 w-[400px] text-[1.3rem]"
-        @submit.prevent=""
+        @submit.prevent="onSubmit"
       >
         <label
           class="relative flex items-center w-full p-4 bg-gray text-gray-dark rounded-[6px] overflow-hidden"
@@ -18,7 +18,7 @@
             class="absolute w-full h-full pl-[157px] left-0 right-0 bg-gray text-black outline-none"
             type="text"
             placeholder="@channelId"
-            value="@Lolkekovme"
+            :value="channelId"
           >
         </label>
         <button class="w-full p-4 bg-black text-white rounded-[6px]">See channel</button>
@@ -28,8 +28,21 @@
 </template>
 
 <script setup lang="ts">
-  definePageMeta({
-    layout: "empty",
-  });
+definePageMeta({
+  layout: "empty",
+});
 
+const router = useRouter();
+
+// const channelId = ref("@Lolkekovme");
+const channelId = ref("UCsSsgPaZ2GSmO6il8Cb5iGA");
+
+const onSubmit = () => {
+  router.push({
+    path: "channel",
+    query: {
+      id: channelId.value,
+    },
+  });
+};
 </script>

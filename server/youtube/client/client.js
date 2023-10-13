@@ -7,6 +7,22 @@ export class Client {
     this.http = new HttpCached();
   }
 
+  async getChannelInfo(channelId) {
+    const params = {
+      params: TAB_TYPE_PARAMS.about,
+    }
+    
+    const response = await this.http.post(`${I_END_POINT}/browse`, {
+      browseId: channelId,
+      ...params,
+    }, true);
+    
+    return {
+      about: parseTabData("about", response),
+      header: response.header
+    };
+  }
+
   async getVideoInfo(videoId) {
     const { videoDetails, endscreen, microformat } = await this.http.post(`${I_END_POINT}/player`, {
       videoId,
@@ -19,6 +35,7 @@ export class Client {
       params: TAB_TYPE_PARAMS.videos,
       ...options,
     }
+
     const response = await this.http.post(`${I_END_POINT}/browse`, {
       browseId: channelId,
       ...params,

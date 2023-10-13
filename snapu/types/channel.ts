@@ -3,9 +3,10 @@ import { Image } from "./image";
 
 export type Channel = {
   name: string,
+  country?: string,
   channelId: string,
   externalId: string,
-  viewsCount: number,
+  viewCount: number,
   createdDate: Date,
   video: Video[],
   avatar: Image | Image[],

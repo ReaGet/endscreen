@@ -12,23 +12,57 @@ export class Parser {
     this.videosCount = 0;
   }
 
-  async getData(channelId) {
+  // @DaFuqBoom
+
+  async getChannel(_channelId) {
+    const response = await this.client.getChannelInfo(_channelId);
+    const {
+      title,
+      canonicalChannelUrl,
+      channelId,
+      viewCountText,
+      avatar,
+      joinedDateText,
+      country,
+      description
+    } = response.about[0].channelAboutFullMetadataRenderer;
+
+    const {
+      banner,
+      videosCountText,
+    } = response.header.c4TabbedHeaderRenderer;
+
+    return {
+      name: title.simpleText,
+      channelId: canonicalChannelUrl.split("/").slice(-1)[0],
+      externalId: channelId,
+      videoCount: parseInt(videosCountText.runs[0].text),
+      viewCount: parseInt(viewCountText.simpleText.match(/\d/g).join("")),
+      createdDate: joinedDateText.runs[1].text,
+      avatar: avatar.thumbnails,
+      banner: banner.thumbnails,
+      country: country.simpleText,
+      description: description.simpleText,
+    };
+  }
+
+  async getVideos(channelId) {
     const videoIds = await this.getVideosIds(channelId);
-    const videos =  await this.getVideos(videoIds);
+    const videos =  await this._getVideos(videoIds);
     const result = await Promise.all(videos.map(async (video) => {
       if (!video.endscreens) {
         return video;
       }
       return {
         ...video,
-        endscreens: await this.getVideos(video.endscreens),
+        endscreens: await this._getVideos(video.endscreens),
       };
     }));
 
     return result;
   }
 
-  async getVideos(ids) {
+  async _getVideos(ids) {
     this.videosCount += ids.length;
     const videos = await Promise.all(ids.map((videoId) => {
       return this.client.getVideoInfo(videoId);
