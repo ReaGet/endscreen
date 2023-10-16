@@ -25,7 +25,7 @@ export class Parser {
       joinedDateText,
       country,
       description
-    } = response.about[0].channelAboutFullMetadataRenderer;
+    } = response.about[0]?.channelAboutFullMetadataRenderer || {};
 
     const {
       banner,
@@ -33,16 +33,16 @@ export class Parser {
     } = response.header.c4TabbedHeaderRenderer;
 
     return {
-      name: title.simpleText,
-      channelId: canonicalChannelUrl.split("/").slice(-1)[0],
+      name: title?.simpleText || "",
+      channelId: canonicalChannelUrl?.split("/").slice(-1)[0] || "",
       externalId: channelId,
-      videoCount: parseInt(videosCountText.runs[0].text),
-      viewCount: parseInt(viewCountText.simpleText.match(/\d/g).join("")),
-      createdDate: joinedDateText.runs[1].text,
-      avatar: avatar.thumbnails,
-      banner: banner.thumbnails,
-      country: country.simpleText,
-      description: description.simpleText,
+      videoCount: parseInt(videosCountText?.runs[0].text) || 0,
+      viewCount: parseInt(viewCountText?.simpleText.match(/\d/g).join("")) || 0,
+      createdDate: joinedDateText?.runs[1].text || "",
+      avatar: avatar?.thumbnails || null,
+      banner: banner?.thumbnails || null,
+      country: country?.simpleText || "",
+      description: description?.simpleText || "",
     };
   }
 

@@ -34,6 +34,8 @@ export const parseTabData = (name, data) => {
       .contents.map(
       (c) => c.backstagePostThreadRenderer?.post || c
     ) ||
+    tab?.tabRenderer.content.sectionListRenderer?.contents?.[0].itemSectionRenderer
+      .contents[0] ||
     data.onResponseReceivedActions?.[0].appendContinuationItemsAction.continuationItems.map(
       (c) => c.richItemRenderer?.content || c
     ) ||

@@ -9,6 +9,6 @@ export type Video = {
   thumbnail: Image,
   viewCount: number,
   endscreen: null | Video[],
-  publish: Date,
-  upload: Date,
+  publish: object,
+  upload: object,
 };

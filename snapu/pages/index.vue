@@ -22,7 +22,7 @@
           >
         </label>
         <button class="w-full p-4 bg-black text-white rounded-[6px]">See channel</button>
-      </form> 
+      </form>
     </div>
   </div>
 </template>
@@ -30,6 +30,10 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "empty",
+});
+
+useHead({
+  title: "Homepage",
 });
 
 const router = useRouter();
