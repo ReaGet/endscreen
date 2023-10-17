@@ -1,10 +1,19 @@
 <template>
-  <div class="flex flex-col w-[250px]">
-    <div class="flex justify-between">
+  <div
+    class="flex flex-col shrink-0 w-[250px] rounded-md hover:bg-cyan-100 hover:ring-4 ring-cyan-100"
+    :class="{
+      'bg-red-200 ring-4 ring-red-200': external,
+      'bg-cyan-300 ring-4 ring-cyan-300': selected,
+    }"
+  >
+    <div class="flex justify-between px-2">
       <span>{{ video.publish?.date }}</span>
       <span>{{ video.publish?.time }}</span>
     </div>
-    <div class="relative w-full h-56 rounded-md overflow-hidden bg-gray hover:shadow-lg">
+    <div
+      class="relative w-full h-56 rounded-md overflow-hidden bg-gray"
+      @click.stop="$emit('select', video)"
+    >
       <img
         v-if="video.thumbnail?.url"
         :src="video.thumbnail?.url"
@@ -21,25 +30,16 @@
 </template>
 
 <script setup lang="ts">
+import { convertTime } from "@/mixins";
 import { Video } from '~/types';
 const props = defineProps<{
   video: Video,
+  external?: boolean,
+  selected: boolean,
 }>();
 const { video } = props;
 
 const videoLink = computed(() => {
   return `https://www.youtube.com/watch?v=${video.videoId}`;
 });
-
-const convertTime = (totalSeconds: number) => {
-  let hours = Math.floor(totalSeconds / 3600);
-  let minutes = Math.floor((totalSeconds - (hours * 3600)) / 60);
-  let seconds = totalSeconds - (hours * 3600) - (minutes * 60);
-
-  if (hours < 10) { hours = "0" + hours; }
-  if (minutes < 10) { minutes = "0" + minutes; }
-  if (seconds < 10) { seconds = "0" + seconds; }
-  
-  return (/0{1,2}/g.test(hours) !== true ? hours + ":" : "") + minutes + ":" + seconds;
-};
 </script>

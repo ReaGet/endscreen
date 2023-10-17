@@ -59,6 +59,8 @@ export class Parser {
       };
     }));
 
+    this.client.http.cache.reset();
+
     return result;
   }
 
@@ -105,7 +107,7 @@ export class Parser {
       videoId,
       duration: lengthSeconds,
       thumbnail: thumbnail.thumbnails[thumbnail.thumbnails.length - 1],
-      viewCount,
+      viewCount: Number(viewCount),
       publish: {
         date: dateFormatter(publishDate, "date"),
         time: dateFormatter(publishDate, "time"),

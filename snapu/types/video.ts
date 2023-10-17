@@ -8,7 +8,13 @@ export type Video = {
   duration: number,
   thumbnail: Image,
   viewCount: number,
-  endscreen: null | Video[],
-  publish: object,
-  upload: object,
+  endscreens: null | Video[],
+  publish: {
+    date: string,
+    time: string,
+  },
+  upload: {
+    date: string,
+    time: string,
+  },
 };

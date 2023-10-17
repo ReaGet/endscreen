@@ -33,8 +33,8 @@ export const useChannelStore = defineStore("channel", {
           },
           body: JSON.stringify({ id: channelId }),
         });
-        const data = await response.json();
-        this.info = data.data;
+        const channelInfo: Channel = (await response.json()).data;
+        this.info = channelInfo;
         this.loading.step = 1;
       } catch(error) {
         console.log("Channel fetching error:", error);
@@ -49,14 +49,15 @@ export const useChannelStore = defineStore("channel", {
           },
           body: JSON.stringify({ id: channelId }),
         });
-        const data = await response.json();
-        this.videos = data.data;
+        const videos: Video[] = (await response.json()).data;
+        this.videos = videos;
+
         this.loading.step = 2;
         setTimeout(() => {
           this.loading.done = true;
         }, 300);
       } catch(error) {
-        console.log("Channel fetching error:", error);
+        console.log("Videos fetching error:", error);
       }
     }
   },
